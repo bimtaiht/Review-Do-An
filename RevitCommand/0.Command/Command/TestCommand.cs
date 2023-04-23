@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Utility;
+using Model.Entity;
 
 namespace Model.RevitCommand
 {
@@ -75,4 +76,31 @@ namespace Model.RevitCommand
             }
         }
     }
+    [Transaction(TransactionMode.Manual)]
+    public class TestCommand2 : RevitCommand
+    {
+        public override void Execute()
+        {
+            //var airTerminal = sel.PickElement<FamilyInstance>();
+            //var duct = sel.PickElement<Duct>();
+
+            var processor = new AirTerminalProcessor
+            {
+                MainDuct = sel.PickElement<Duct>(),
+                AirTerminal = sel.PickElement<FamilyInstance>()
+            };
+
+            processor.Do();
+
+            // kết quả
+            //var tap = processor.Tap;
+            //TaskDialog.Show("Revit", $"Đối tượng tap: {tap.Name}");
+
+        }
+
+    }
+                
 }
+    
+
+
